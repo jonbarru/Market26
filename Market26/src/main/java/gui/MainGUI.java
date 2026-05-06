@@ -45,6 +45,8 @@ public class MainGUI extends JFrame {
 	// Nuestros nuevos botones
 	private JButton btnLogin;
 	private JButton btnRegister;
+	private JButton btnSellerRanking;
+	private JButton btnSendCounterOffersEmail;
 
 	/**
 	 * This is the default constructor
@@ -54,8 +56,8 @@ public class MainGUI extends JFrame {
 
 		this.sellerMail=mail;
 		
-		// Restauramos el tamaño original de la ventana para que quede proporcionada con 4 elementos
-		this.setSize(495, 290);
+		// Restauramos el tamaño original de la ventana para que quede proporcionada con 6 elementos
+		this.setSize(495, 380);
 		
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -134,12 +136,34 @@ public class MainGUI extends JFrame {
 			}
 		});
 		
+		// Configuración del botón de Ranking de Vendedores
+		btnSellerRanking = new JButton();
+		btnSellerRanking.setText("Ver Ranking de Vendedores");
+		btnSellerRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SellerRankingGUI rankingWindow = new SellerRankingGUI();
+				rankingWindow.setVisible(true);
+			}
+		});
+		
+		// Configuración del botón de Envío de Emails
+		btnSendCounterOffersEmail = new JButton();
+		btnSendCounterOffersEmail.setText("Enviar Emails de Contraofertas");
+		btnSendCounterOffersEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SendCounterOffersEmailGUI emailWindow = new SendCounterOffersEmailGUI(MainGUI.this);
+				emailWindow.setVisible(true);
+			}
+		});
+		
 		jContentPane = new JPanel();
-		jContentPane.setLayout(new GridLayout(4, 1, 0, 0));
+		jContentPane.setLayout(new GridLayout(6, 1, 0, 0));
 		
 		jContentPane.add(jLabelSelectOption);
 		jContentPane.add(btnRegister);
 		jContentPane.add(btnLogin);
+		jContentPane.add(btnSellerRanking);
+		jContentPane.add(btnSendCounterOffersEmail);
 		jContentPane.add(panel);
 		
 		setContentPane(jContentPane);

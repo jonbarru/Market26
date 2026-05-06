@@ -516,3 +516,55 @@ Type domain.CounterOffer is not enhanced.
 [2026-03-31 11:44:11 #5 type] 
 Type domain.Buyer is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-03-31 19:39:41 #1 store] 
+Database '/home/jon/Documentos/git/market26/Market26/products.temp' is opened by 12653@jon
+
+[2026-03-31 19:39:41 #2 type] 
+Type domain.Seller is not enhanced.
+
+[2026-03-31 19:39:41 #3 type] 
+Type domain.Sale is not enhanced.
+
+[2026-03-31 19:39:41 #4 type] 
+Type domain.CounterOffer is not enhanced.
+
+[2026-03-31 19:39:41 #5 type] 
+Type domain.Buyer is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-03-31 19:59:34 #1 store] 
+Database '/home/jon/Documentos/git/market26/Market26/products.temp' is opened by 18243@jon
+
+[2026-03-31 19:59:34 #2 type] 
+Type domain.Seller is not enhanced.
+
+[2026-03-31 19:59:34 #3 type] 
+Type domain.Sale is not enhanced.
+
+[2026-03-31 19:59:34 #4 type.registry] 
+New type domain.CounterOffer
+
+[2026-03-31 19:59:34 #5 type.registry] 
+New type domain.Buyer
+
+[2026-03-31 19:59:34 #6 type] 
+Type domain.CounterOffer is not enhanced.
+
+[2026-03-31 19:59:34 #7 type] 
+Type domain.Buyer is not enhanced.
+
+[2026-03-31 20:00:12 #8 type.registry] 
+New type java.util.ArrayList<domain.CounterOffer>
+
+[2026-03-31 20:00:12 #9 type.registry] 
+New type com.objectdb.o.LMT
+
+[2026-03-31 20:00:12 #10 type.registry] 
+New type com.objectdb.o.VAL
+
+[2026-03-31 20:00:12 #11 type.registry] 
+New type com.objectdb.o.RFV
+

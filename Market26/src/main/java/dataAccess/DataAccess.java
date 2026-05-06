@@ -500,5 +500,35 @@ public void open(){
 	        
 	        db.getTransaction().rollback();
 	        return false;
-		} 
+		}
+	
+		// --- Métodos para ranking de vendedores y envío de emails ---
+		
+		// Obtener todos los vendedores ordenados por rating (descendente)
+		public List<Seller> getSellerRanking() {
+			javax.persistence.TypedQuery<Seller> query = db.createQuery(
+				"SELECT s FROM Seller s ORDER BY s.rating DESC", 
+				Seller.class);
+			return query.getResultList();
+		}
+		
+		// Obtener resumen de contraofertas pendientes para envío por email
+		public List<CounterOffer> getCounterOffersSummary() {
+			javax.persistence.TypedQuery<CounterOffer> query = db.createQuery(
+				"SELECT c FROM CounterOffer c WHERE c.status = 'Pendiente' ORDER BY c.sale.seller.email, c.id", 
+				CounterOffer.class);
+			return query.getResultList();
+		}
+		
+		// Actualizar rating del vendedor basado en sus ventas aceptadas
+		public void updateSellerRating(String sellerEmail, double newRating) {
+			db.getTransaction().begin();
+			Seller s = db.find(Seller.class, sellerEmail);
+			if (s != null) {
+				s.setRating(newRating);
+				db.getTransaction().commit();
+			} else {
+				db.getTransaction().rollback();
+			}
+		}
 }

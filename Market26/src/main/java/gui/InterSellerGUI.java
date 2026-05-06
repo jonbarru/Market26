@@ -20,12 +20,12 @@ public class InterSellerGUI extends JFrame {
 	public InterSellerGUI(Seller seller) {
 		this.currentSeller = seller;
 		
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 480, 250);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(3, 1, 0, 0));
-		setTitle(ResourceBundle.getBundle("Etiquetas").getString("InterSellerGUI.Title") + ": " + seller.getName());
-        setBounds(100, 100, 480, 250); 
+		setTitle(ResourceBundle.getBundle("Etiquetas").getString("InterSellerGUI.Title") + ": " + seller.getName()); 
         
         JLabel lblSelect = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("InterSellerGUI.Option"));
         lblSelect.setFont(new Font("Tahoma", Font.BOLD, 13));

@@ -8,6 +8,7 @@ import javax.jws.WebService;
 
 import dataAccess.DataAccess;
 import domain.Sale;
+import domain.Seller;
 import domain.CounterOffer;
 import exceptions.FileNotUploadedException;
 import exceptions.MustBeLaterThanTodayException;
@@ -194,6 +195,78 @@ public class BLFacadeImplementation  implements BLFacade {
 		boolean res = dbManager.editPassword(currentMail, newPass);
 		return true;
 	}
+	
+	// --- Métodos para ranking de vendedores y envío de emails ---
+	
+	public List<Seller> getSellerRanking() {
+		dbManager.open();
+		List<Seller> ranking = dbManager.getSellerRanking();
+		dbManager.close();
+		return ranking;
+	}
+
+	public boolean rateSeller(String sellerEmail, double rating) {
+		dbManager.open();
+		dbManager.updateSellerRating(sellerEmail, rating);
+		dbManager.close();
+		return true;
+	}
+	
+	public boolean sendCounterOffersEmailToSellers() {
+		dbManager.open();
+		List<CounterOffer> counterOffers = dbManager.getCounterOffersSummary();
+		dbManager.close();
 		
+		// Agrupar contraofertas por vendedor
+		java.util.Map<String, java.util.List<CounterOffer>> sellerOffers = 
+			new java.util.HashMap<String, java.util.List<CounterOffer>>();
+		
+		for (CounterOffer offer : counterOffers) {
+			String sellerEmail = offer.getSale().getSeller().getEmail();
+			if (!sellerOffers.containsKey(sellerEmail)) {
+				sellerOffers.put(sellerEmail, new java.util.ArrayList<CounterOffer>());
+			}
+			sellerOffers.get(sellerEmail).add(offer);
+		}
+		
+		// Enviar email a cada vendedor
+		try {
+			for (java.util.Map.Entry<String, java.util.List<CounterOffer>> entry : sellerOffers.entrySet()) {
+				String sellerEmail = entry.getKey();
+				if (sellerEmail == null) {
+					System.err.println("Email inválido: email de vendedor nulo");
+					continue;
+				}
+				sellerEmail = sellerEmail.trim();
+				if (sellerEmail.isEmpty()) {
+					System.err.println("Email inválido: email de vendedor vacío");
+					continue;
+				}
+				
+				List<CounterOffer> offers = entry.getValue();
+				
+				StringBuilder emailBody = new StringBuilder();
+				emailBody.append("Estimado vendedor,\n\n");
+				emailBody.append("Tiene las siguientes contraofertas pendientes:\n\n");
+				
+				for (CounterOffer offer : offers) {
+					emailBody.append("- Producto: ").append(offer.getSale().getTitle()).append("\n");
+					emailBody.append("  Precio original: ").append(offer.getSale().getPrice()).append("€\n");
+					emailBody.append("  Precio ofertado: ").append(offer.getOfferedPrice()).append("€\n");
+					emailBody.append("  Comprador: ").append(offer.getBuyer().getEmail()).append("\n\n");
+				}
+				
+				emailBody.append("Por favor, responda a través de la aplicación.\n\n");
+				emailBody.append("Saludos,\nEquipo Market26");
+				
+				// Enviar email
+				EmailService.sendEmail(sellerEmail, "Contraofertas pendientes - Market26", emailBody.toString());
+			}
+			return true;
+		} catch (Exception e) {
+			System.err.println("Error al enviar emails: " + e.getMessage());
+			return false;
+		}
+	}
 }
 

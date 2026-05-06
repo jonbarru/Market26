@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import domain.Sale;
+import domain.Seller;
 import domain.CounterOffer;
 import exceptions.FileNotUploadedException;
 import exceptions.MustBeLaterThanTodayException;
@@ -85,4 +86,9 @@ public interface BLFacade  {
 	public boolean editName(String currentMail, String newName);
 	public boolean editMail(String currentMail, String newMail);
 	public boolean editPassword(String currentMail, String newPass);
+	
+	// --- Métodos para ranking de vendedores y envío de emails ---
+	public List<Seller> getSellerRanking();
+	public boolean sendCounterOffersEmailToSellers();
+	public boolean rateSeller(String sellerEmail, double rating);
 }

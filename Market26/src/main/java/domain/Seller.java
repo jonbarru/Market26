@@ -29,6 +29,7 @@ public class Seller implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Sale> sales=new ArrayList<Sale>();
 	private String password;
+	private double rating = 0.0;  // Valoración del vendedor
 
 	public Seller() {
 		super();
@@ -70,8 +71,13 @@ public class Seller implements Serializable {
 		this.password=password;
 	}
 	
-
+	public double getRating() {
+		return rating;
+	}
 	
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 	
 	public String toString(){
 		return email+";"+name+sales;
