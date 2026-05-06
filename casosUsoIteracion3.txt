@@ -1,0 +1,72 @@
+--- CASOS DE USO PARA LA ITERACIÓN 3 DE MARKET26 --
+
+1. Envío automático de correos electrónicos con contraofertas pendientes a los vendedores
+
+**Descripción:**
+El sistema envía automáticamente correos electrónicos a todos los vendedores que tienen contraofertas pendientes en sus productos, notificándoles sobre las ofertas realizadas por los compradores.
+
+**Actores:**
+- Administrador del sistema (inicia el proceso)
+- Vendedores (receptores de los correos)
+
+**Precondiciones:**
+- El sistema tiene configurado el servicio de envío de correos electrónicos
+- Existen vendedores registrados en el sistema
+- Hay contraofertas pendientes en productos de al menos un vendedor
+- El administrador tiene permisos para ejecutar procesos de envío masivo
+
+**Flujo principal:**
+1. El administrador selecciona la opción "Enviar Emails de Contraofertas" desde la interfaz principal
+2. El sistema recopila todas las contraofertas pendientes agrupadas por vendedor
+3. Para cada vendedor con contraofertas pendientes:
+   a. El sistema genera un correo electrónico con la lista de contraofertas
+   b. El correo incluye: título del producto, precio original, precio ofertado y datos del comprador
+   c. El sistema envía el correo electrónico al vendedor
+4. El sistema muestra un resumen del proceso indicando cuántos correos se enviaron exitosamente
+
+**Flujos alternativos:**
+- Si no hay contraofertas pendientes: El sistema muestra un mensaje informativo y no envía ningún correo
+- Si falla el envío a un vendedor específico: El sistema registra el error y continúa con los demás vendedores
+- Si hay problemas de configuración del correo: El sistema muestra un mensaje de error y detiene el proceso
+
+**Postcondiciones:**
+- Los vendedores han recibido notificaciones por correo sobre sus contraofertas pendientes
+- El sistema ha registrado el resultado del envío masivo
+- Los correos electrónicos contienen toda la información necesaria para que los vendedores respondan a las ofertas
+
+
+2. Consulta del ranking de vendedores por valoración
+
+**Descripción:**
+Los usuarios pueden consultar un ranking de todos los vendedores ordenados por su valoración media, permitiendo identificar a los vendedores mejor valorados por los compradores.
+
+**Actores:**
+- Compradores
+- Vendedores
+- Administradores
+
+**Precondiciones:**
+- Existen vendedores registrados en el sistema
+- Al menos algunos vendedores tienen valoraciones de compradores
+- El usuario tiene acceso a la interfaz principal del sistema
+
+**Flujo principal:**
+1. El usuario selecciona la opción "Ver Ranking de Vendedores" desde la interfaz principal
+2. El sistema recupera todos los vendedores ordenados por valoración descendente
+3. El sistema muestra una tabla con:
+   - Nombre del vendedor
+   - Correo electrónico del vendedor
+   - Valoración numérica (promedio de todas las valoraciones recibidas)
+4. La tabla está ordenada de mayor a menor valoración
+5. El usuario puede actualizar la vista para ver los datos más recientes
+
+**Flujos alternativos:**
+- Si no hay vendedores con valoraciones: El sistema muestra una tabla vacía con mensaje informativo
+- Si el usuario es comprador: Puede acceder a la funcionalidad de valoración desde esta vista
+- Si hay empate en valoraciones: Los vendedores se ordenan alfabéticamente por nombre
+
+**Postcondiciones:**
+- El usuario ha podido consultar el ranking completo de vendedores
+- La información mostrada refleja las valoraciones más actualizadas
+- Los compradores conocen qué vendedores tienen mejor reputación en el sistema</content>
+<parameter name="filePath">/home/jon/Documentos/git/market26/Market26/CASOS_USO_ITERACION_3.md
